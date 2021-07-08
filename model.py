@@ -27,7 +27,7 @@ class Net(nn.Module):
             nn.ReLU(),
             nn.MaxPool2d(2, 2),  # output: 256 x 25 x 25
             nn.Flatten(),
-            nn.Linear(256 * 25 * 25, 1024),
+            nn.Linear(256 * 15 * 15, 1024),
             nn.ReLU(),
             nn.Linear(1024, 512),
             nn.ReLU(),

@@ -7,17 +7,17 @@ import helpers
 
 # 1. Load and normalize
 class Load_data:
-    batch_size = 1
+    batch_size = 2
     training_dataset_path = "./Dataset/train"
     testing_dataset_path = "./Dataset/test"
 
     def __init__(self):
-        # [-0.6908, -0.8088, -0.9180]), tensor([0.3923, 0.3808, 0.3967]
-        mean = [-0.6908, -0.8088, -0.9180]
-        std = [0.3923, 0.3808, 0.3967]
+        # (tensor([0.6183, 0.3749, 0.2988]), tensor([0.2393, 0.2849, 0.2810]))
+        mean = [0.6183, 0.3749, 0.2988]
+        std = [0.2393, 0.2849, 0.2810]
         training_transform = transforms.Compose(
             [
-                transforms.Resize((200, 200)),
+                transforms.Resize((120, 120)),
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(10),
                 transforms.ToTensor(),
@@ -27,7 +27,7 @@ class Load_data:
 
         test_transform = transforms.Compose(
             [
-                transforms.Resize((200, 200)),
+                transforms.Resize((120, 120)),
                 transforms.ToTensor(),
                 transforms.Normalize(torch.tensor(mean), torch.tensor(std)),
             ]

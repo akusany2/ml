@@ -11,6 +11,8 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 if torch.cuda.is_available():
     gc.collect()
     torch.cuda.empty_cache()
+    torch.cuda.memory_summary(device=None, abbreviated=False)
+
 else:
     print("using CPU")
 print(device)
