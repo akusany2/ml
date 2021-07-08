@@ -9,7 +9,7 @@ PATH = "./model_net.pth"
 
 def imshow(img):
     img = img / 2 + 0.5  # unnormalize
-    npimg = img.numpy()
+    npimg = img.cpu().numpy()
     plt.imshow(np.transpose(npimg, (1, 2, 0)))
     plt.show()
 

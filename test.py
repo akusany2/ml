@@ -4,25 +4,29 @@ import helpers
 
 
 class Test:
-    def __init__(self, model, testloader, classes):
+    def __init__(self, model, testloader, classes, device, batch_size):
         self.net = model
+        self.device = device
+        self.batch_size = batch_size
+
         # Load training model
         self.net.load_state_dict(torch.load(helpers.PATH))
 
         self.testloader = testloader
         self.classes = classes
 
-    def test_network_with_limit(self, class_limit):
+    def test_network_with_limit(self):
 
         # 5. Test the network on the test data
         dataiter = iter(self.testloader)
         images, labels = dataiter.next()
-
+        images, labels = images.to(self.device), labels.to(self.device)
         # print images
         helpers.imshow(torchvision.utils.make_grid(images))
+
         print(
             "GroundTruth: ",
-            " ".join("%5s" % self.classes[labels[j]] for j in range(class_limit)),
+            " ".join("%5s" % self.classes[labels[j]] for j in range(self.batch_size)),
         )
 
         outputs = self.net(images)
@@ -31,7 +35,9 @@ class Test:
 
         print(
             "Predicted: ",
-            " ".join("%5s" % self.classes[predicted[j]] for j in range(class_limit)),
+            " ".join(
+                "%5s" % self.classes[predicted[j]] for j in range(self.batch_size)
+            ),
         )
 
     def test_network_full(self):
@@ -42,8 +48,10 @@ class Test:
         with torch.no_grad():
             for data in self.testloader:
                 images, labels = data
+                images, labels = images.to(self.device), labels.to(self.device)
                 # calculate outputs by running images through the network
                 outputs = self.net(images)
+
                 # the class with the highest energy is what we choose as prediction
                 _, predicted = torch.max(outputs.data, 1)
                 total += labels.size(0)
@@ -63,6 +71,7 @@ class Test:
         with torch.no_grad():
             for data in self.testloader:
                 images, labels = data
+                images, labels = images.to(self.device), labels.to(self.device)
                 outputs = self.net(images)
                 _, predictions = torch.max(outputs, 1)
                 # collect the correct predictions for each class

@@ -1,6 +1,7 @@
 import torch
 import torchvision
 import torchvision.transforms as transforms
+from torchvision.transforms.transforms import RandomOrder
 import helpers
 
 
@@ -8,15 +9,15 @@ import helpers
 class Load_data:
     batch_size = 1
     training_dataset_path = "./Dataset/train"
-    testing_dataset_path = "./Dataset/val"
+    testing_dataset_path = "./Dataset/test"
 
     def __init__(self):
-        # mean & std = (tensor([1.0102, 0.9364, 0.8310]), tensor([0.6800, 0.6295, 0.5738]))
-        mean = [1.0102, 0.9364, 0.8310]
-        std = [0.6800, 0.6295, 0.5738]
+        # [-0.6908, -0.8088, -0.9180]), tensor([0.3923, 0.3808, 0.3967]
+        mean = [-0.6908, -0.8088, -0.9180]
+        std = [0.3923, 0.3808, 0.3967]
         training_transform = transforms.Compose(
             [
-                transforms.Resize((100, 100)),
+                transforms.Resize((200, 200)),
                 transforms.RandomHorizontalFlip(),
                 transforms.RandomRotation(10),
                 transforms.ToTensor(),
@@ -26,7 +27,7 @@ class Load_data:
 
         test_transform = transforms.Compose(
             [
-                transforms.Resize((256, 256)),
+                transforms.Resize((200, 200)),
                 transforms.ToTensor(),
                 transforms.Normalize(torch.tensor(mean), torch.tensor(std)),
             ]
@@ -44,7 +45,7 @@ class Load_data:
             root=self.testing_dataset_path, transform=test_transform
         )
         self.testloader = torch.utils.data.DataLoader(
-            testset, batch_size=self.batch_size, shuffle=False, num_workers=0
+            testset, batch_size=self.batch_size, shuffle=True, num_workers=0
         )
 
     def get_mean_std(self, loader):

@@ -3,12 +3,13 @@ import model
 import train
 import helpers
 import test
-import torch
+import torch, gc
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 if torch.cuda.is_available():
+    gc.collect()
     torch.cuda.empty_cache()
 else:
     print("using CPU")
@@ -28,7 +29,7 @@ train.train_network(data.trainloader)
 train.save(helpers.PATH)
 
 # Test model
-# test = test.Test(net, data.testloader, data.classes)
-# test.test_network_with_limit(4)
+# test = test.Test(net, data.testloader, data.classes, device, data.batch_size)
+# test.test_network_with_limit()  # number of classes = batch size
 # test.test_network_full()
 # test.performance()

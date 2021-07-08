@@ -8,6 +8,7 @@ from torch.nn.modules import padding
 
 class Net(nn.Module):
     def __init__(self):
+
         super().__init__()
         self.network = nn.Sequential(
             nn.Conv2d(3, 32, kernel_size=3, padding=1),
@@ -24,9 +25,9 @@ class Net(nn.Module):
             nn.ReLU(),
             nn.Conv2d(256, 256, kernel_size=3, stride=1, padding=1),
             nn.ReLU(),
-            nn.MaxPool2d(2, 2),  # output: 256 x 32 x 32
+            nn.MaxPool2d(2, 2),  # output: 256 x 25 x 25
             nn.Flatten(),
-            nn.Linear(256 * 32 * 32, 1024),
+            nn.Linear(256 * 25 * 25, 1024),
             nn.ReLU(),
             nn.Linear(1024, 512),
             nn.ReLU(),
@@ -36,6 +37,6 @@ class Net(nn.Module):
     def forward(self, x):
         # for layer in self.network:
         #     x = layer(x)
-        # print(x.size())
+        #     print(x.size())
         # return x
         return self.network(x)
