@@ -15,7 +15,7 @@ class Test:
         self.testloader = testloader
         self.classes = classes
 
-    def test_network_with_limit(self):
+    def test_network_with_limit(self, size):
 
         # 5. Test the network on the test data
         dataiter = iter(self.testloader)
@@ -26,7 +26,7 @@ class Test:
 
         print(
             "GroundTruth: ",
-            " ".join("%5s" % self.classes[labels[j]] for j in range(self.batch_size)),
+            " ".join("%5s" % self.classes[labels[j]] for j in range(size)),
         )
 
         outputs = self.net(images)
@@ -36,7 +36,7 @@ class Test:
         print(
             "Predicted: ",
             " ".join(
-                "%5s" % self.classes[predicted[j]] for j in range(self.batch_size)
+                "%5s" % self.classes[predicted[j]] for j in range(size)
             ),
         )
 

@@ -1,7 +1,7 @@
 import torch
 import torchvision
 import torchvision.transforms as transforms
-from torchvision.transforms.transforms import RandomOrder
+from torchvision.transforms.transforms import Grayscale, RandomOrder, RandomTransforms
 import helpers
 
 
@@ -19,7 +19,8 @@ class Load_data:
             [
                 transforms.Resize((120, 120)),
                 transforms.RandomHorizontalFlip(),
-                transforms.RandomRotation(10),
+                transforms.RandomVerticalFlip(),
+                transforms.RandomRotation(20),
                 transforms.ToTensor(),
                 transforms.Normalize(torch.tensor(mean), torch.tensor(std)),
             ]

@@ -32,6 +32,6 @@ train.save(helpers.PATH)
 
 # Test model
 # test = test.Test(net, data.testloader, data.classes, device, data.batch_size)
-# test.test_network_with_limit()  # number of classes = batch size
+# test.test_network_with_limit(10)
 # test.test_network_full()
 # test.performance()
