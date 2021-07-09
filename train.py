@@ -14,7 +14,7 @@ class Train:
 
     # 4. Train the network
     def train_network(self, trainloader):
-
+        self.net.train()
         for epoch in range(4):  # loop over the dataset multiple times
 
             running_loss = 0.0

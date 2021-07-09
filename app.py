@@ -5,6 +5,7 @@ import helpers
 import test
 import torch, gc
 
+from densenet_pytorch import DenseNet
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
@@ -17,21 +18,24 @@ else:
     print("using CPU")
 print(device)
 
+
 # Load data and classes
 data = load_data.Load_data()
 # print(data.get_mean_std(data.trainloader))
 
 # Load model
-net = model.Net()
+# net = model.Net()
+net = DenseNet.from_name("densenet121")
 net.to(device)
 
+
 # Train model
-train = train.Train(net, device)
-train.train_network(data.trainloader)
-train.save(helpers.PATH)
+# train = train.Train(net, device)
+# train.train_network(data.trainloader)
+# train.save(helpers.PATH)
 
 # Test model
-# test = test.Test(net, data.testloader, data.classes, device, data.batch_size)
+test = test.Test(net, data.testloader, data.classes, device, data.batch_size)
 # test.test_network_with_limit(10)
-# test.test_network_full()
-# test.performance()
+test.test_network_full()
+test.performance()

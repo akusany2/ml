@@ -7,7 +7,7 @@ import helpers
 
 # 1. Load and normalize
 class Load_data:
-    batch_size = 2
+    batch_size = 10
     training_dataset_path = "./Dataset/train"
     testing_dataset_path = "./Dataset/test"
 

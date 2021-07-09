@@ -16,7 +16,7 @@ class Test:
         self.classes = classes
 
     def test_network_with_limit(self, size):
-
+        self.net.eval()
         # 5. Test the network on the test data
         dataiter = iter(self.testloader)
         images, labels = dataiter.next()
@@ -35,9 +35,7 @@ class Test:
 
         print(
             "Predicted: ",
-            " ".join(
-                "%5s" % self.classes[predicted[j]] for j in range(size)
-            ),
+            " ".join("%5s" % self.classes[predicted[j]] for j in range(size)),
         )
 
     def test_network_full(self):
